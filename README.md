@@ -1,0 +1,1 @@
+# projop- aplikacja służy do obliczania średniej arytmetycznej liczb. Aplikacja liczby podane przez użytkownika sume tych liczb dzieli przez ich ilość ,a następnie wypisuje wynik. Aplikacja wymaga od użytkownika podania liczb do wyliczenia ich średniej arytmetycznej.
