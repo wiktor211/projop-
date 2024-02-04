@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POMOCNIK MATEMATYCZNY</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .nav-item {
+            margin: 0 10px;
+            background-color: #555;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #555;
+        }
+        .scroll-to-top {
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 9999;
+            border-radius: 5px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #555;
+        }
+
+        .scroll-to-top.show {
+            display: block;
+        }
+        a {
+            color: white; /* Ustawiamy kolor tekstu na biały */
+            text-decoration: none; /* Usuwamy domyślne podkreślenie */
+        }
+        a:visited {
+            color: white; /* Ustawiamy kolor tekstu na biały */
+            text-decoration: none; /* Usuwamy podkreślenie */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>POMOCNIK DO NAUKI MATEMATYKI</h1>
+        <div class="nav-container">
+            <div class="nav-item"><a href="projekt2.html">Strona Główna</a></div>
+            <div class="nav-item"><a href="WzoryMaturalne.html">Wzory Maturalne</a></div>
+            <div class="nav-item"><a href="KalkulatorŚredniej.html">Kalkulator Średniej</a></div>
+        </div>
+    </header>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var scrollButton = document.getElementById('scroll-to-top');
+            if (document.documentElement.scrollTop > 300) {
+                scrollButton.classList.add('show');
+            } else {
+                scrollButton.classList.remove('show');
+            }
+        });
+
+        document.getElementById('scroll-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
