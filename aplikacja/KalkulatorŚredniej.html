@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALKULATOR ŚREDNIEJ</title>
+    <link rel="stylesheet" href="kalkulator.css">
+</head>
+<body>
+    <header>
+        <h1>KALKULATOR ŚREDNIEJ</h1>
+        <div class="nav-container">
+            <div class="nav-item"><a href="projekt.html">Strona Główna</a></div>
+            <div class="nav-item"><a href="WzoryMaturalne.html">Wzory Maturalne</a></div>
+            <div class="nav-item"><a href="KalkulatorŚredniej.html">Kalkulator Średniej</a></div>
+            <div class="nav-item"><a href="generator.html">Generator zadań</a></div>
+
+        </div>
+    </header>
+
+     <!-- Formularz do wprowadzania ilości liczb -->
+
+    <!-- <form>: Rozpoczęcie formularza do wprowadzania ilości liczb. -->
+        <form> 
+            <!-- <label for="numberOfNumbers">Ile liczb chcesz wprowadzić?</label>: Etykieta dla pola wprowadzania liczby. -->
+            <label for="numberOfNumbers">Ile liczb chcesz wprowadzić?</label> 
+    
+            <!-- <input type="number" id="numberOfNumbers">: Pole do wprowadzania liczby, gdzie użytkownik może wpisać ilość liczb. -->
+            <input type="number" id="numberOfNumbers"> 
+    
+            <!-- <button type="button" id="submitButton">Przejdź dalej</button>: Przycisk "Przejdź dalej" do rozpoczęcia procesu wprowadzania liczb. -->
+            <button type="button" id="submitButton">Przejdź dalej</button>
+    
+        <!-- </form>: Koniec formularza do wprowadzania ilości liczb. -->
+        </form> 
+        
+            <!-- Kontener do wprowadzania liczb -->
+    
+            <!-- <div id="numberInput" style="display: none;">: Kontener do wprowadzania liczb, który jest ukryty (display: none) na początku. -->
+            <div id="numberInput" style="display: none;"> 
+        
+                <!-- <h2>Wprowadź liczby:</h2>: Nagłówek informujący użytkownika, że teraz może wprowadzać liczby. -->
+                    <h2>Wprowadź liczby:</h2> 
+        
+                <!-- <ul id="numberList">: Lista, w której będą generowane pola do wprowadzania liczb. -->
+                    <ul id="numberList"> 
+        
+                <!-- Tu zostaną wygenerowane pola do wprowadzania liczb -->
+                    </ul>
+                <!-- <button type="button" id="calculateButton">Oblicz średnią</button>: Przycisk "Oblicz średnią" do rozpoczęcia obliczeń średniej arytmetycznej. -->
+                    <button type="button" id="calculateButton">Oblicz średnią</button> 
+        
+                <!-- </div>: Koniec kontenera do wprowadzania liczb.-->
+                </div>
+            
+                <!-- Wyświetlenie wyniku -->
+        
+                <!-- <div id="result" style="display: none;">: Kontener na wyświetlenie wyniku, który jest ukryty na początku. -->
+                <div id="result" style="display: none;">
+        
+                    <!-- <h2>Wynik:</h2>: Nagłówek informujący o wyświetleniu wyniku. -->
+                    <h2>Wynik:</h2>
+        
+                <!-- <p id="average">Średnia arytmetyczna wynosi: <span id="resultValue"></span></p>: Paragraf, w którym zostanie wyświetlona średnia arytmetyczna. -->
+                    <p id="average">Średnia arytmetyczna wynosi: <span id="resultValue"></span></p>
+        
+                <!-- </div>: Koniec kontenera na wynik. -->
+            </div>
+
+            <div id="scroll-to-top" class="scroll-to-top">Do góry</div>
+
+            <br>
+            <header>
+                <p>©Wiktor Majewski. Wszelkie prawa zastrzeżone!</p>
+            </header>
+            
+    <script>
+        // Inicjalizacja zmiennych
+        
+        // Definiujemy zmienne, które będą używane do przechowywania liczb, sumy i średniej arytmetycznej.
+            let numbers = [];
+            let sum = 0;
+            let average = 0;
+        //Pobiera element input z id "numberOfNumbers", który służy do wprowadzania ilości liczb.
+            const numberOfNumbersInput = document.getElementById("numberOfNumbers");
+        
+        //Pobiera przycisk "Przejdź dalej", który uruchamia proces wprowadzania liczb.
+            const submitButton = document.getElementById("submitButton");
+        
+        //Pobiera kontener "numberInput", który jest ukryty na początku i służy do wprowadzania liczb.
+            const numberInput = document.getElementById("numberInput");
+        
+        // Pobiera listę, w której będą generowane pola do wprowadzania liczb.
+            const numberList = document.getElementById("numberList");
+                    
+        //Pobiera przycisk "Oblicz średnią", który rozpoczyna obliczenia średniej arytmetycznej.
+            const calculateButton = document.getElementById("calculateButton");
+        
+        //Pobiera kontener "result", w którym wyświetlany będzie wynik.
+            const result = document.getElementById("result");
+        
+        //Pobiera element, w którym wyświetlana jest średnia arytmetyczna.
+            const resultValue = document.getElementById("resultValue");
+            
+        /* Obsługa przycisku "Przejdź dalej"
+        Ta linia kodu dodaje nasłuchiwanie na kliknięcie przycisku o id "submitButton". Po kliknięciu przycisku zostanie wykonana funkcja.*/
+
+            submitButton.addEventListener("click", function() {
+        
+        /*Pobiera wartość wpisaną przez użytkownika w polu "numberOfNumbers" (ilość liczb) i konwertuje ją na liczbę całkowitą za pomocą funkcji parseInt.
+          Ta liczba zostaje przypisana do zmiennej numberOfNumbers.*/
+            const numberOfNumbers = parseInt(numberOfNumbersInput.value);
+        
+        //Sprawdza, czy numberOfNumbers jest liczbą (czy nie jest NaN) i czy jest większa od zera. Jeśli tak, to oznacza, że użytkownik wprowadził prawidłową liczbę.
+            if (!isNaN(numberOfNumbers) && numberOfNumbers > 0) {
+        
+        // Wyświetlenie pól do wprowadzania liczb
+        
+        //Czyści zawartość listy o id "numberList" (usuwa wszystkie pola do wprowadzania liczb), przygotowując ją do wygenerowania nowych pól.
+            numberList.innerHTML = "";
+        
+        // Rozpoczyna pętlę, która generuje nowe pola do wprowadzania liczb. Pętla będzie iterować od 0 do liczby numberOfNumbers wprowadzonej przez użytkownika.
+            for (let i = 0; i < numberOfNumbers; i++) {
+        
+         //Tworzy nowy element listy (<li>), który będzie zawierał etykietę i pole do wprowadzania liczby.
+            const li = document.createElement("li");
+        
+        /* Ustawia zawartość nowego elementu listy (<li>) jako HTML, który zawiera etykietę i pole do wprowadzania liczy. 
+        Etykieta ma unikalne id, aby można było je powiązać z polem do wprowadzania.*/
+            li.innerHTML = `<label for="number${i}">Liczba #${i + 1}:</label><input type="number" id="number${i}">`;
+        
+        //Dodaje nowy element listy do listy o id "numberList". To tworzy nowe pole do wprowadzania liczby w liście.
+            numberList.appendChild(li);}
+        //Ustawia styl kontenera o id "numberInput" na "block", co powoduje wyświetlenie kontenera do wprowadzania liczb, który wcześniej był ukryty.
+            numberInput.style.display = "block";
+        
+        /*W przeciwnym razie, jeśli liczba wprowadzona przez użytkownika nie była liczbą lub była mniejsza lub równa zero, 
+        wyświetlany jest komunikat "Wprowadź poprawną liczbę." za pomocą funkcji alert.*/
+            } else {
+                alert("Wprowadź poprawną liczbę.");
+            }
+            });
+            
+        // Obsługa przycisku "Oblicz średnią"
+        
+        //Ta linia kodu dodaje nasłuchiwanie na kliknięcie przycisku o id "calculateButton". Po kliknięciu przycisku zostanie wykonana funkcja.
+            calculateButton.addEventListener("click", function() {
+        
+        //Czyści tablicę numbers, która przechowuje wcześniej wprowadzone liczby.
+            numbers = [];
+        
+        //Zeruje zmienną sum, która będzie używana do obliczenia sumy wprowadzonych liczb.
+            sum = 0;
+            
+        // Pobranie liczb od użytkownika
+        
+        //Rozpoczyna pętlę, która będzie iterować przez pola do wprowadzania liczb (od 0 do liczby numberOfNumbersInput.value, czyli ilości wprowadzonych liczb).
+            for (let i = 0; i < numberOfNumbersInput.value; i++) {
+        
+        //Pobiera element input z unikalnym id, które jest generowane na podstawie zmiennej i, aby uzyskać dostęp do wprowadzonej liczby.
+            const numberInput = document.getElementById(`number${i}`);
+        
+        //Pobiera wartość wprowadzoną przez użytkownika w polu i konwertuje ją na liczbę zmiennoprzecinkową (float). Ta liczba zostaje przypisana do zmiennej number.
+            const number = parseFloat(numberInput.value);
+        
+        //Sprawdza, czy number jest liczbą (czy nie jest NaN). Jeśli tak, to oznacza, że użytkownik wprowadził poprawną liczbę.
+            if (!isNaN(number)) {
+        
+        //Dodaje wprowadzoną liczbę do tablicy numbers, aby później można było obliczyć ich średnią arytmetyczną.
+            numbers.push(number);
+        
+        //Dodaje wprowadzoną liczbę do sumy, aby później można było obliczyć ich średnią arytmetyczną.
+            sum += number;
+        
+        //W przeciwnym razie, jeśli wprowadzona wartość nie była liczbą, wyświetla komunikat "Wprowadź poprawną liczbę." za pomocą funkcji alert i przerywa proces.    
+            } else {
+            alert("Wprowadź poprawną liczbę.");
+                            
+        //przerywa proces
+            return;}
+            }
+            
+        // Obliczenie średniej arytmetycznej
+        
+        //To jest warunek if, który sprawdza, czy tablica numbers zawiera jakieś elementy, co oznacza, że użytkownik wprowadził poprawne liczby do obliczeń.
+            if (numbers.length > 0) {
+        
+        /*Jeśli tablica numbers zawiera elementy, oblicza średnią arytmetyczną wprowadzonych liczb, dzieląc sumę (sum) przez liczbę wprowadzonych liczb (numbers.length).
+        Wynik jest przypisywany do zmiennej average.*/
+            average = sum / numbers.length;
+        
+        //Ustawia zawartość elementu o id "resultValue" na obliczoną średnią arytmetyczną (average) za pomocą właściwości textContent. W ten sposób wynik jest wyświetlany na stronie.
+            resultValue.textContent = average;
+        
+        //Ustawia styl kontenera o id "result" na "block", co sprawia, że wynik jest widoczny na stronie. Kontener ten jest ukryty na początku, ale po obliczeniach staje się widoczny.
+            result.style.display = "block";
+        
+        //W przeciwnym razie, jeśli tablica numbers nie zawiera elementów, to znaczy, że użytkownik nie podał poprawnych liczb.
+            } else {
+        
+        //Wyświetla komunikat za pomocą funkcji alert, informujący użytkownika, że nie podał poprawnych liczb.
+                alert("Nie podano poprawnych liczb.");
+            }
+            });
+
+            window.addEventListener('scroll', function() {
+            var scrollButton = document.getElementById('scroll-to-top');
+            if (document.documentElement.scrollTop > 300) {
+                scrollButton.classList.add('show');
+            } else {
+                scrollButton.classList.remove('show');
+            }
+        });
+
+        document.getElementById('scroll-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

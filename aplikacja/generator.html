@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator zadań matematycznych</title>
+<link rel="stylesheet" href="matura.css">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #555;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 1000px;
+        margin: 50px auto;
+        text-align: center;
+        background-color: #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+    }
+    h1 {
+        color: #ffffff;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #555;
+    }
+    .problem,
+    .answer {
+        cursor: pointer;
+        color: #1E90FF;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    .problem:hover,
+    .answer:hover {
+        color: #0047AB;
+    }
+    .answer {
+        display: none;
+        padding-top: 10px;
+    }
+    .problem:hover + .answer {
+        display: block;
+        background-color: #f0f0f0;
+    }
+    .problem,
+    .answer p {
+        margin: 0;
+    }
+</style>
+
+</head>
+<header>
+    <h1>GENERATOR ZADAN</h1>
+    <div class="nav-container">
+        <div class="nav-item"><a href="projekt.html">Strona Główna</a></div>
+        <div class="nav-item"><a href="WzoryMaturalne.html">Wzory Maturalne</a></div>
+        <div class="nav-item"><a href="KalkulatorŚredniej.html">Kalkulator Średniej</a></div>
+        <div class="nav-item"><a href="generator.html">Generator zadań</a></div>
+
+    </div>
+</header>
+<body>
+<div class="container">
+    <div class="column">
+        <h2>Dodawanie</h2>
+        <div id="additionProblems"></div>
+        <div id="additionAnswers" class="answers"></div>
+    </div>
+    <div class="column">
+        <h2>Odejmowanie</h2>
+        <div id="subtractionProblems"></div>
+        <div id="subtractionAnswers" class="answers"></div>
+    </div>
+    <div class="column">
+        <h2>Mnożenie</h2>
+        <div id="multiplicationProblems"></div>
+        <div id="multiplicationAnswers" class="answers"></div>
+    </div>
+    <div class="column">
+        <h2>Dzielenie</h2>
+        <div id="divisionProblems"></div>
+        <div id="divisionAnswers" class="answers"></div>
+    </div>
+    <button onclick="generateProblems()">Generuj zadania</button>
+    <button id="showAnswers" style="display: none;" onclick="showAnswers()">Pokaż odpowiedzi</button>
+</div>
+<header>
+    <p>©Wiktor Majewski. Wszelkie prawa zastrzeżone!</p>
+</header>
+<script>
+    var answersGenerated = false;
+    
+    function generateProblems() {
+        var additionProblemsHTML = '';
+        var subtractionProblemsHTML = '';
+        var multiplicationProblemsHTML = '';
+        var divisionProblemsHTML = '';
+        
+        var additionAnswersHTML = '';
+        var subtractionAnswersHTML = '';
+        var multiplicationAnswersHTML = '';
+        var divisionAnswersHTML = '';
+        
+        for (var i = 0; i < 5; i++) {
+            // Dodawanie
+            var num1_add = Math.floor(Math.random() * 10) + 1;
+            var num2_add = Math.floor(Math.random() * 10) + 1;
+            var additionProblem = num1_add + ' + ' + num2_add + ' = ';
+            additionProblemsHTML += '<p class="problem">' + additionProblem + '</p>';
+            additionAnswersHTML += '<div class="answer"><p>' + (i+1) + '. Odpowiedź: ' + (num1_add + num2_add) + '</p></div>';
+            
+            // Odejmowanie
+            var num1_sub = Math.floor(Math.random() * 10) + 1;
+            var num2_sub = Math.floor(Math.random() * 10) + 1;
+            var subtractionProblem = num1_sub + ' - ' + num2_sub + ' = ';
+            subtractionProblemsHTML += '<p class="problem">' + subtractionProblem + '</p>';
+            subtractionAnswersHTML += '<div class="answer"><p>' + (i+1) + '. Odpowiedź: ' + (num1_sub - num2_sub) + '</p></div>';
+            
+            // Mnożenie
+            var num1_mul = Math.floor(Math.random() * 10) + 1;
+            var num2_mul = Math.floor(Math.random() * 10) + 1;
+            var multiplicationProblem = num1_mul + ' * ' + num2_mul + ' = ';
+            multiplicationProblemsHTML += '<p class="problem">' + multiplicationProblem + '</p>';
+            multiplicationAnswersHTML += '<div class="answer"><p>' + (i+1) + '. Odpowiedź: ' + (num1_mul * num2_mul) + '</p></div>';
+            
+            // Dzielenie
+            var num1_div = Math.floor(Math.random() * 10) + 1;
+            var num2_div = Math.floor(Math.random() * 10) + 1;
+            var divisionProblem = (num1_div * num2_div) + ' / ' + num2_div + ' = ';
+            divisionProblemsHTML += '<p class="problem">' + divisionProblem + '</p>';
+            divisionAnswersHTML += '<div class="answer"><p>' + (i+1) + '. Odpowiedź: ' + num1_div + '</p></div>';
+        }
+        
+        document.getElementById('additionProblems').innerHTML = additionProblemsHTML;
+        document.getElementById('subtractionProblems').innerHTML = subtractionProblemsHTML;
+        document.getElementById('multiplicationProblems').innerHTML = multiplicationProblemsHTML;
+        document.getElementById('divisionProblems').innerHTML = divisionProblemsHTML;
+        
+        document.getElementById('additionAnswers').innerHTML = additionAnswersHTML;
+        document.getElementById('subtractionAnswers').innerHTML = subtractionAnswersHTML;
+        document.getElementById('multiplicationAnswers').innerHTML = multiplicationAnswersHTML;
+        document.getElementById('divisionAnswers').innerHTML = divisionAnswersHTML;
+        
+        document.getElementById('showAnswers').style.display = 'block';
+        
+        // Ustawiamy flagę na true, aby oznaczyć, że odpowiedzi zostały wygenerowane
+        answersGenerated = true;
+    }
+    
+    function showAnswers() {
+        // Sprawdzamy, czy odpowiedzi zostały już wygenerowane
+        if (!answersGenerated) {
+            // Jeśli nie, generujemy je
+            generateProblems();
+        }
+        
+        // Wyświetlamy odpowiedzi dla wszystkich działań
+        var answerDivs = document.querySelectorAll('.answer');
+        
+        // Wyświetlamy wszystkie odpowiedzi
+        for (var i = 0; i < answerDivs.length; i++) {
+            answerDivs[i].style.display = 'block';
+        }
+        
+        // Ukrywamy przycisk "Pokaż odpowiedzi"
+        document.getElementById('showAnswers').style.display = 'none';
+    }
+</script>
+</body>
+</html>
+
